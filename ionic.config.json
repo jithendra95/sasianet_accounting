@@ -1,0 +1,7 @@
+{
+  "name": "Sasianet_Accounting",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
