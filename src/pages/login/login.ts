@@ -42,6 +42,8 @@ export class LoginPage {
       this.storage.set('email', this.email);
       this.storage.set('password', this.password);
       this.storage.set('schema', 'DTMSFAC');
+      this.storage.set('token', btoa(this.email+":"+this.password));
+      
       loader.dismiss();
     }else{
       this.intProv.presentToast('Invalid credentials');

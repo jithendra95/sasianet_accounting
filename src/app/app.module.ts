@@ -17,8 +17,8 @@ import { LoginPage } from '../pages/login/login';
 import { IonicStorageModule } from '@ionic/storage';
 import { InterfaceProvider } from '../providers/interface/interface';
 import { ClientServiceProvider } from '../providers/client-service/client-service';
-import { Http, HttpModule } from '@angular/http';
-
+import {  HttpModule } from '@angular/http';
+import { HideFabDirective } from '../directives/hide-fab/hide-fab';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { Http, HttpModule } from '@angular/http';
     ViewClientPage,
     ViewApprovalPage,
     ViewDashboardPage,
-    LoginPage
+    LoginPage,
+    HideFabDirective
   ],
   imports: [
     BrowserModule,

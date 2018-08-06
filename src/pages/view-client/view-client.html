@@ -11,22 +11,46 @@
           <ion-icon name="menu"></ion-icon>
         </button>
     <ion-title>Client's</ion-title>
+
+    <ion-toolbar >
+        <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+    </ion-toolbar>
+
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding hide-fab>
 
+    
+    <ion-list >
+       
+        <ion-item *ngFor="let item of clientList">
+       
+            <ion-grid>
 
-    <ion-list no-lines>
-        <button ion-item *ngFor="let item of clientList" >
-          {{ item.Name }}
-        </button> 
+                      <ion-row>
+                          <ion-col col-12 align='left' text-wrap>{{item?.Name}}</ion-col>
+                     </ion-row>
+
+            
+                    <ion-row class='secondTxt'>
+                        <ion-col col-12 align='left'>{{item?.Address  }}  {{item?.City  }} {{item?.Country }}</ion-col>
+                    </ion-row>
+            
+                    <ion-row class='secondTxt'> 
+                        <ion-col col-1 align='left' *ngIf='item.Tel_no'><ion-icon name='phone-portrait'></ion-icon></ion-col>
+                          <ion-col col-11>{{item.Tel_no}}</ion-col>
+                    </ion-row>
+
+            </ion-grid>
+          
+        </ion-item>
       </ion-list>
 
 
-     <ion-fab  center bottom >
-        <button ion-fab  ><ion-icon name="add"></ion-icon></button>
+      <ion-fab  center bottom >
+        <button ion-fab fab><ion-icon name="add"></ion-icon></button>
       </ion-fab>
 </ion-content>

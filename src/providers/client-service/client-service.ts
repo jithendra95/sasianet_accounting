@@ -16,7 +16,7 @@ export class ClientServiceProvider {
   }
 
 
-     async getClientList(userId,schema,password) {
+     async getClientList(userId,schema,token) {
     
         
     
@@ -24,7 +24,7 @@ export class ClientServiceProvider {
         var headers = new Headers();
         headers.append("Accept", 'application/json');
         headers.append('Content-Type', 'application/json' );
-        headers.append('Authorization', 'Basic ' + btoa(userId+":"+'all123'));
+        headers.append('Authorization', 'Basic ' +token);
         let options = new RequestOptions({ headers: headers });
      
         /*let getParams = {
