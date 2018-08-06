@@ -1,18 +1,93 @@
-<ion-header>
-  <ion-navbar>
+
+
+<ion-header >
+  <ion-navbar color='primary'>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>Sasianet | Accounting</ion-title>
+
+
+
+    <ion-buttons end >
+        <button ion-button icon-only>
+            <ion-badge  color="danger">{{this.undreadNotification||''}}</ion-badge>
+            <ion-icon name="notifications"></ion-icon>
+          </button>
+  
+          <button ion-button icon-only (click)="logoutConfirm()">
+            <ion-icon name="log-out"></ion-icon>
+          </button>  
+         
+   </ion-buttons> 
+
+
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h3>Ionic Menu Starter</h3>
+    <br/><br/><br/>
+     <ion-grid >
+         
+          <ion-row>
+            <ion-col col-12 align='center'>
+              <img src='assets/imgs/logo_acc.png' class='logoImg'>
+            </ion-col>
+          </ion-row>
 
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
-  </p>
+          <br/><br/><br/>
+        <ion-row>
 
-  <button ion-button secondary menuToggle>Toggle Menu</button>
+          <ion-col col-6 align='center' (click)='buttonClick("memo")'>
+            <img src='assets/imgs/memo_icon.png' class='profileImg'>
+          </ion-col>
+
+          <ion-col col-6 align='center' (click)='buttonClick("diary")'>
+              <img src='assets/imgs/diary_icon.png' class='profileImg'>
+          </ion-col>
+       
+        </ion-row>
+
+        <ion-row>
+
+             <ion-col col-6 align='center'>
+                Memo
+              </ion-col>
+    
+              <ion-col col-6 align='center'>
+                Diary
+              </ion-col>  
+                  
+       </ion-row>
+   
+
+       <br/>
+       <ion-row>
+
+         <ion-col col-6 align='center' (click)='buttonClick("approval")'>
+           <img src='assets/imgs/approval_icon.png' class='profileImg'>
+         </ion-col>
+
+         <ion-col col-6 align='center' (click)='buttonClick("dashboard")'>
+             <img src='assets/imgs/dashboard_icon.png' class='profileImg'>
+         </ion-col>
+      
+       </ion-row>
+
+       <ion-row>
+         
+            <ion-col col-6 align='center'>
+               Approvals
+             </ion-col>
+   
+             <ion-col col-6 align='center'>
+               Dashboard
+             </ion-col>  
+                 
+      </ion-row>
+      </ion-grid>
+
+
 </ion-content>
+
+<ion-footer align='center' padding>Version 1.0.0</ion-footer>

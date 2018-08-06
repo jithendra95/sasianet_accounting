@@ -1,16 +1,40 @@
 <ion-menu [content]="content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
+
+
+
+  <ion-header> 
+  <ion-grid >
+     
+     <ion-row><ion-col col-12 align='center'><img src='assets/imgs/profile.png' class='profileImg'></ion-col></ion-row>
+     <ion-row><ion-col col-12 align='center'>Sasianet | Accounting</ion-col></ion-row>
+     <ion-row><ion-col col-12 align='center'>{{this.email}}</ion-col></ion-row>
+  </ion-grid>
   </ion-header>
 
-  <ion-content>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
-      </button>
-    </ion-list>
+  <ion-content padding>
+
+      <ion-list>
+          
+          <ion-list-header>
+            Main
+          </ion-list-header>
+       
+        <ion-item menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)"> 
+            <ion-icon name="{{p.icon}}" item-start></ion-icon>{{p.title}}
+        </ion-item>
+     
+          <ion-list-header>
+            Reports
+          </ion-list-header>
+          
+          <ion-item menuClose ion-item *ngFor="let p of reportPages" (click)="openPage(p)"> 
+              <ion-icon name="{{p.icon}}" item-start></ion-icon>{{p.title}}
+          </ion-item>
+
+      </ion-list>
+
+   
+
   </ion-content>
 
 </ion-menu>

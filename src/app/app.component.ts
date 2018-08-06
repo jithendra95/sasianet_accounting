@@ -5,6 +5,17 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { ViewClientPage } from '../pages/view-client/view-client';
+import { ViewMemoPage } from '../pages/view-memo/view-memo';
+import { ViewDiaryPage } from '../pages/view-diary/view-diary';
+import { ViewApprovalPage } from '../pages/view-approval/view-approval';
+import { ViewDashboardPage } from '../pages/view-dashboard/view-dashboard';
+import { Storage } from '@ionic/storage';
+import { LoginPage } from '../pages/login/login';
+
+
+import { MenuController } from 'ionic-angular';
+
 
 @Component({
   templateUrl: 'app.html'
@@ -12,19 +23,54 @@ import { ListPage } from '../pages/list/list';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  rootPage: any = LoginPage;
+  email ='';
+  pages: Array<{title: string, component: any,icon: string}>;
+  reportPages: Array<{title: string, component: any,icon: string}>;
 
-  pages: Array<{title: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+
+  constructor(public platform: Platform, public statusBar: StatusBar, 
+              public splashScreen: SplashScreen,private storage: Storage,
+              public menu:MenuController) {
+
+                this.storage.get('status').then((val) => {
+                  if(val){
+
+                      this.storage.set('status',false);
+
+                       this.storage.get('email').then(result=>{
+                        this.email=result;
+                       });
+
+                      this.rootPage= HomePage;
+                  }else{
+                    this.menu.enable(false);
+                    this.rootPage= LoginPage;
+                  }
+            
+                  this.splashScreen.hide();
+                }).catch(function(error){
+                  this.menu.enable(false);
+                  this.rootPage= LoginPage;
+                  this.splashScreen.hide();
+                });
+
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'List', component: ListPage }
+      { title: 'Home',       component: HomePage,         icon: 'home' },
+      { title: 'Client',     component: ViewClientPage,   icon: 'person-add' },
+      { title: 'Memo',       component: ViewMemoPage,     icon: 'clipboard' },
+      { title: 'Diary',      component: ViewDiaryPage,    icon: 'book' },
+      { title: 'Approval',   component: ViewApprovalPage, icon: 'checkmark-circle' }
     ];
 
+    this.reportPages = [
+      { title: 'Dashboard',       component: ViewDashboardPage,         icon: 'apps' },
+      { title: 'Reports',         component: ViewClientPage,            icon: 'list' }
+    ];
   }
 
   initializeApp() {

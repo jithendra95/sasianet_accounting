@@ -8,27 +8,55 @@ import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { ViewMemoPage } from '../pages/view-memo/view-memo';
+import { ViewDiaryPage } from '../pages/view-diary/view-diary';
+import { ViewClientPage } from '../pages/view-client/view-client';
+import { ViewApprovalPage } from '../pages/view-approval/view-approval';
+import { ViewDashboardPage } from '../pages/view-dashboard/view-dashboard';
+import { LoginPage } from '../pages/login/login';
+import { IonicStorageModule } from '@ionic/storage';
+import { InterfaceProvider } from '../providers/interface/interface';
+import { ClientServiceProvider } from '../providers/client-service/client-service';
+import { Http, HttpModule } from '@angular/http';
+
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    ViewMemoPage,
+    ViewDiaryPage,
+    ViewClientPage,
+    ViewApprovalPage,
+    ViewDashboardPage,
+    LoginPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage
+    ListPage,
+    ViewMemoPage,
+    ViewDiaryPage,
+    ViewClientPage,
+    ViewApprovalPage,
+    ViewDashboardPage,
+    LoginPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    InterfaceProvider,
+    ClientServiceProvider
+    
   ]
 })
 export class AppModule {}
