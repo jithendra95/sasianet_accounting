@@ -16,7 +16,6 @@ import { ViewDashboardPage } from '../pages/view-dashboard/view-dashboard';
 import { LoginPage } from '../pages/login/login';
 import { IonicStorageModule } from '@ionic/storage';
 import { InterfaceProvider } from '../providers/interface/interface';
-import { ClientServiceProvider } from '../providers/client-service/client-service';
 import { Http, HttpModule } from '@angular/http';
 
 
@@ -54,8 +53,7 @@ import { Http, HttpModule } from '@angular/http';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    InterfaceProvider,
-    ClientServiceProvider
+    InterfaceProvider
     
   ]
 })

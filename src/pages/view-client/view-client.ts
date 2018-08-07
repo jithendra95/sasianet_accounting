@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { ClientServiceProvider } from '../../providers/client-service/client-service';
 
 /**
  * Generated class for the ViewClientPage page.
@@ -18,10 +17,10 @@ export class ViewClientPage {
 
   clientList =[];
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private storage:Storage,private cliService:ClientServiceProvider) {
+    private storage:Storage) {
 
 
-    this.storage.get('email').then(email=>{
+    /*this.storage.get('email').then(email=>{
       this.storage.get('password').then(pass=>{
         this.storage.get('schema').then(schema=>{
           this.cliService.getClientList(email,schema,pass).then(result=>{
@@ -29,7 +28,7 @@ export class ViewClientPage {
           })
          });
        });
-     });
+     });*/
   }
 
   

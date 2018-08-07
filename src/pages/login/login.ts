@@ -4,6 +4,8 @@ import { MenuController } from 'ionic-angular';
 import { InterfaceProvider } from '../../providers/interface/interface';
 import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
+import { Http,Headers,RequestOptions } from '@angular/http';
+import {SERVICE_URL} from '../../app/app.config';
 /**
  * Generated class for the LoginPage page.
  *
@@ -23,18 +25,18 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public menu:MenuController,private intProv:InterfaceProvider,
-              private storage: Storage) {
+              private storage: Storage,public http: Http) {
 
   }
 
  login(){
 
   let loader=this.intProv.presentLoading();
-  loader.present();
+  //loader.present();
 
   if(this.validateInput()){
 
-    if(this.email=='kanishka@sasianet.com' && this.password=='all123'){
+    /*if(this.email=='kanishka@sasianet.com' && this.password=='all123'){
         
       this.navCtrl.setRoot(HomePage);
       this.menu.enable(true);
@@ -46,7 +48,28 @@ export class LoginPage {
     }else{
       this.intProv.presentToast('Invalid credentials');
       loader.dismiss();
-    }
+    }*/
+
+          var headers = new Headers();
+          headers.append("Accept", 'application/json');
+          headers.append('Content-Type', 'application/json' );
+          headers.append('Authorization', 'Basic ' + btoa(this.email+":"+'481426f982fab8f979bbc75dec0befafb828642b'));
+          let options = new RequestOptions({ headers: headers });
+      
+          let getParams = {
+            email: this.email,
+            password :'481426f982fab8f979bbc75dec0befafb828642b'
+          }
+          
+          this.http.post(SERVICE_URL+"User/Validate"
+                            ,getParams, options)
+            .subscribe(data => {
+              let returnData=data['_body'];
+              console.log(data['_body']);
+            }, error => {
+              console.log(error);// Error getting the data
+            });
+        
   }else{
     loader.dismiss();
   }

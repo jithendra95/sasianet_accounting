@@ -7,7 +7,6 @@ import { ViewDashboardPage } from '../view-dashboard/view-dashboard';
 import { LoginPage } from '../login/login';
 import { MenuController } from 'ionic-angular/components/app/menu-controller';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
-import { ClientServiceProvider } from '../../providers/client-service/client-service';
 import { Storage } from '@ionic/storage';
 
 @Component({
