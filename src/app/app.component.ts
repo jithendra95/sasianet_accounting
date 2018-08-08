@@ -23,7 +23,7 @@ import { MenuController } from 'ionic-angular';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage;
+  rootPage: any ;
   email ='';
   system='';
   pages: Array<{title: string, component: any,icon: string}>;

@@ -30,7 +30,11 @@ export class ViewClientPage {
    
   }
 
-  
+  refresh(refresher){
+
+    this.getClientList();
+    refresher.complete();
+  }
 
   async getClientList(){
    
@@ -89,6 +93,11 @@ export class ViewClientPage {
 
   addClient(){
     this.navCtrl.push(AddClientPage);
+  }
+
+  editClient(selectedClient){
+    console.log(selectedClient);
+    this.navCtrl.push(AddClientPage,{client:selectedClient});
   }
 
 }
