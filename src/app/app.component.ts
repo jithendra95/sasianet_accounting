@@ -13,7 +13,7 @@ import { ViewDashboardPage } from '../pages/view-dashboard/view-dashboard';
 import { Storage } from '@ionic/storage';
 import { LoginPage } from '../pages/login/login';
 
-
+import { Events } from 'ionic-angular';
 import { MenuController } from 'ionic-angular';
 
 
@@ -25,6 +25,7 @@ export class MyApp {
 
   rootPage: any = LoginPage;
   email ='';
+  system='';
   pages: Array<{title: string, component: any,icon: string}>;
   reportPages: Array<{title: string, component: any,icon: string}>;
 
@@ -32,15 +33,30 @@ export class MyApp {
 
   constructor(public platform: Platform, public statusBar: StatusBar, 
               public splashScreen: SplashScreen,private storage: Storage,
-              public menu:MenuController) {
+              public menu:MenuController,public events: Events) {
+
+                events.subscribe('user:login', () => {
+                  // user and time are the same arguments passed in `events.publish(user, time)`
+                //  console.log('Welcome', user, 'at', time);
+                  this.storage.get('email').then(result=>{
+                    this.email=result;
+                   });
+
+                   this.storage.get('system_name').then(result=>{
+                    this.system=result;
+                   });
+                });
+
 
                 this.storage.get('status').then((val) => {
                   if(val){
 
-                      this.storage.set('status',false);
-
                        this.storage.get('email').then(result=>{
                         this.email=result;
+                       });
+
+                       this.storage.get('system_name').then(result=>{
+                        this.system=result;
                        });
 
                       this.rootPage= HomePage;
