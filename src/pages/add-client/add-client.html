@@ -1,0 +1,54 @@
+<!--
+  Generated template for the AddClientPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color='primary'>
+    <ion-title>Client - {{this.mode}}</ion-title>
+  
+
+  <ion-buttons end >
+       <button ion-button (click)='saveClient()'> Save</button>
+</ion-buttons> 
+ 
+   </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-item>
+    <ion-label stacked>Client Name</ion-label>
+    <ion-input type="text" [(ngModel)]="this.client.Name"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Client Address</ion-label>
+    <ion-input type="text" [(ngModel)]="this.client.Address"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Client City</ion-label>
+    <ion-input type="text" [(ngModel)]="this.client.City"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Client Country</ion-label>
+    <ion-input type="text" [(ngModel)]="this.client.Contry"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Client Telephone No</ion-label>
+    <ion-input type="text" [(ngModel)]="this.client.Tel_no"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label stacked>Client VAT No</ion-label>
+    <ion-input type="text" [(ngModel)]="this.client.Vat_no"></ion-input>
+  </ion-item>
+  
+  
+</ion-content>

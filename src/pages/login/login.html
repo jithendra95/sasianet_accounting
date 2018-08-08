@@ -25,8 +25,8 @@
       </ion-grid>
     <br/>
 
-    
-      <div align='center' class='container'>
+    <ion-card>
+     
         <ion-item>
            <ion-label floating>Email</ion-label>
            <ion-input type='text' [(ngModel)]="email"></ion-input>
@@ -38,7 +38,8 @@
          </ion-item>
         
         <br/>
+        <ion-item>
         <button ion-button   (click)='login()' class='login-buttons' color='secondary'>Login</button>
-      </div>
-        
+        </ion-item>
+    </ion-card>   
 </ion-content>

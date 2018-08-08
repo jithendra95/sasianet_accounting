@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
+import { Client } from '../../model/Client';
+
 
 import {Http,Headers,RequestOptions } from '@angular/http';
 import {SERVICE_URL} from '../../app/app.config';
 import { InterfaceProvider } from '../../providers/interface/interface';
-import { AddClientPage } from '../add-client/add-client';
+import { Storage } from '@ionic/storage';
 /**
- * Generated class for the ViewClientPage page.
+ * Generated class for the AddClientPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -15,25 +16,22 @@ import { AddClientPage } from '../add-client/add-client';
 
 @IonicPage()
 @Component({
-  selector: 'page-view-client',
-  templateUrl: 'view-client.html',
+  selector: 'page-add-client',
+  templateUrl: 'add-client.html',
 })
-export class ViewClientPage {
+export class AddClientPage {
 
-  clientList =[];
-
-  
+  mode ='New';
+  client = {} as Client;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private storage:Storage,public http: Http,public intProv:InterfaceProvider) {
-
-   this.getClientList();
-   
+              public storage:Storage,public http: Http,public intProv:InterfaceProvider) {
   }
 
-  
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad AddClientPage');
+  }
 
-  async getClientList(){
-   
+  saveClient(){
 
     this.storage.get('email').then(email=>{
       this.storage.get('token').then(token=>{
@@ -50,13 +48,17 @@ export class ViewClientPage {
           }*/
           let loader=this.intProv.presentLoading();
           loader.present();
-          this.http.get(SERVICE_URL+"client/get_client_list?user_id="+email+"&connect_schema="+schema
-                             , options)
+
+          let getParams = {
+            client: this.client
+          }
+
+          this.http.post(SERVICE_URL+"client/save_client?user_id="+email+"&connect_schema="+schema
+                         ,getParams , options)
             .subscribe(data => {
               let jsonData=data.json();
               console.log(jsonData);
-               this.clientList=jsonData;
-                loader.dismiss();
+              loader.dismiss();
                
              }, error => {
                loader.dismiss();
@@ -66,29 +68,8 @@ export class ViewClientPage {
           })
          });
        });
-     
-  }
-
-  getItems(ev: any) {
-    // Reset items back to all of the items
-    //this.getClientList();
-
-    // set val to the value of the searchbar
-    const val = ev.target.value;
-
-    // if the value is an empty string don't filter the items
-    if (val && val.trim() != '') {
-      this.clientList = this.clientList.filter((item) => {
-        return (item.Name.toLowerCase().indexOf(val.toLowerCase()) > -1);
-      })
-    }else{
-      this.getClientList();
-    }
   }
 
 
-  addClient(){
-    this.navCtrl.push(AddClientPage);
-  }
-
+  
 }

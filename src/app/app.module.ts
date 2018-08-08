@@ -19,6 +19,7 @@ import { InterfaceProvider } from '../providers/interface/interface';
 import { ClientServiceProvider } from '../providers/client-service/client-service';
 import {  HttpModule } from '@angular/http';
 import { HideFabDirective } from '../directives/hide-fab/hide-fab';
+import { AddClientPage } from '../pages/add-client/add-client';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { HideFabDirective } from '../directives/hide-fab/hide-fab';
     ViewApprovalPage,
     ViewDashboardPage,
     LoginPage,
-    HideFabDirective
+    HideFabDirective,
+    AddClientPage
   ],
   imports: [
     BrowserModule,
@@ -49,7 +51,8 @@ import { HideFabDirective } from '../directives/hide-fab/hide-fab';
     ViewClientPage,
     ViewApprovalPage,
     ViewDashboardPage,
-    LoginPage
+    LoginPage,
+    AddClientPage
   ],
   providers: [
     StatusBar,
