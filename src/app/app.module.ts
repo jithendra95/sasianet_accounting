@@ -20,7 +20,11 @@ import { ClientServiceProvider } from '../providers/client-service/client-servic
 import {  HttpModule } from '@angular/http';
 import { HideFabDirective } from '../directives/hide-fab/hide-fab';
 import { AddClientPage } from '../pages/add-client/add-client';
+import { AddMemoPage } from '../pages/add-memo/add-memo';
 
+
+
+import { IonTextAvatar } from 'ionic-text-avatar';
 @NgModule({
   declarations: [
     MyApp,
@@ -33,7 +37,9 @@ import { AddClientPage } from '../pages/add-client/add-client';
     ViewDashboardPage,
     LoginPage,
     HideFabDirective,
-    AddClientPage
+    AddClientPage,
+    AddMemoPage,
+    IonTextAvatar
   ],
   imports: [
     BrowserModule,
@@ -52,7 +58,8 @@ import { AddClientPage } from '../pages/add-client/add-client';
     ViewApprovalPage,
     ViewDashboardPage,
     LoginPage,
-    AddClientPage
+    AddClientPage,
+    AddMemoPage
   ],
   providers: [
     StatusBar,

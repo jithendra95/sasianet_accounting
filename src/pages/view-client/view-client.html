@@ -35,8 +35,11 @@
     
     <ion-list >
        
+
         <ion-item *ngFor="let item of clientList">
-       
+                <ion-avatar  item-start>
+                    <ion-text-avatar color='secondary'>{{item?.Name?.toUpperCase().substring(0,2)}}</ion-text-avatar>
+                </ion-avatar>
             <ion-grid (click)='editClient(item)'>
 
                       <ion-row>

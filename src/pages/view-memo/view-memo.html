@@ -6,16 +6,63 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color='primary'>
         <button ion-button menuToggle>
           <ion-icon name="menu"></ion-icon>
         </button>
     <ion-title>Memo</ion-title>
+
+    <ion-toolbar >
+      <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+  </ion-toolbar>
+
+
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding hide-fab>
+  
+        <ion-refresher (ionRefresh)="refresh($event)">
+             <ion-refresher-content
+                 pullingIcon="arrow-dropdown"
+                 pullingText="Pull to refresh"
+                 refreshingSpinner="circle"
+                 refreshingText="Refreshing...">
+ 
+             </ion-refresher-content>
+           </ion-refresher>
+ 
+ <ion-list >
+    
+     <ion-item *ngFor="let item of memoList">
+      <ion-avatar item-start>
+          <ion-text-avatar color='secondary'>{{item?.Name?.toUpperCase().substring(0,2)}}</ion-text-avatar>
+      </ion-avatar>
+         <ion-grid (click)='editMemo(item)'>
 
+                   <ion-row>
+                       <ion-col col-12 align='left' text-wrap>{{item?.Name}}</ion-col>
+                  </ion-row>
+
+         
+                 <ion-row class='secondTxt'>
+                     <ion-col col-12 align='left' text-wrap>{{item?.Memo  }}  </ion-col>
+                 </ion-row>
+         
+                 <ion-row class='secondTxt'> 
+                     <ion-col col-1 align='left' *ngIf='item.Tel_no'><ion-icon name='phone-portrait'></ion-icon></ion-col>
+                       <ion-col col-11>{{item.Start_date}} {{item.Start_time}}</ion-col>
+                 </ion-row>
+
+         </ion-grid>
+       
+     </ion-item>
+   </ion-list>
+
+
+   <ion-fab  center bottom >
+     <button ion-fab fab (click)='addMemo()'><ion-icon name="add"></ion-icon></button>
+   </ion-fab>
 </ion-content>

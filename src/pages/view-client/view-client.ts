@@ -30,6 +30,9 @@ export class ViewClientPage {
    
   }
 
+  ionViewDidEnter(){
+    this.getClientList();
+  }
   refresh(refresher){
 
     this.getClientList();
@@ -83,6 +86,7 @@ export class ViewClientPage {
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
       this.clientList = this.clientList.filter((item) => {
+        if(item.Name && item.Name !='')
         return (item.Name.toLowerCase().indexOf(val.toLowerCase()) > -1);
       })
     }else{

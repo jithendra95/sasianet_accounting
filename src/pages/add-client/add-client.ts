@@ -109,7 +109,7 @@ export class AddClientPage {
 
           let getParams = this.client;
 
-          this.http.post(SERVICE_URL+"client/save_client?user_id="+email+"&connect_schema="+schema
+          this.http.post(SERVICE_URL+"client/modify_client?user_id="+email+"&connect_schema="+schema
                          ,getParams , options)
             .subscribe(data => {
               let jsonData=data.json();
