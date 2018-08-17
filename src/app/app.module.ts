@@ -22,9 +22,10 @@ import { HideFabDirective } from '../directives/hide-fab/hide-fab';
 import { AddClientPage } from '../pages/add-client/add-client';
 import { AddMemoPage } from '../pages/add-memo/add-memo';
 
-
+import { AutoCompleteModule } from 'ionic2-auto-complete';
 
 import { IonTextAvatar } from 'ionic-text-avatar';
+import { MemoAutoCompleteProvider } from '../providers/memo-auto-complete/memo-auto-complete';
 @NgModule({
   declarations: [
     MyApp,
@@ -43,9 +44,11 @@ import { IonTextAvatar } from 'ionic-text-avatar';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
+    AutoCompleteModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot(),
-    HttpModule
+    IonicStorageModule.forRoot()
+   
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -65,7 +68,8 @@ import { IonTextAvatar } from 'ionic-text-avatar';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    InterfaceProvider
+    InterfaceProvider,
+    MemoAutoCompleteProvider
     
   ]
 })
