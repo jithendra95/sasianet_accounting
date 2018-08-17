@@ -32,4 +32,37 @@
         </ion-row>
    </ion-grid>
 
+   <br/>
+
+   <ion-grid class='black_shade'>
+    <ion-row>
+         <ion-col col-6>
+           
+           <ion-label stacked>Start Time</ion-label>
+           <ion-input  [(ngModel)]="this.memo.Start_time" ></ion-input>
+         </ion-col>
+        <ion-col col-6>
+          
+           <ion-label stacked>End Time</ion-label>
+           <ion-input  [(ngModel)]="this.memo.End_time" ></ion-input>
+
+
+         </ion-col>
+       </ion-row>
+  </ion-grid>
+
+  <br/>
+
+  <ion-grid class='black_shade'>
+    <ion-row>
+      <ion-col col-2></ion-col>
+         <ion-col col-8 align='center'>
+           
+           <ion-label stacked>Time Spent</ion-label><br/>
+           00h  00mm {{this.timeDiffSS}}ss
+         </ion-col>
+         <ion-col col-2></ion-col>
+       </ion-row>
+  </ion-grid>
+
 </ion-content>
