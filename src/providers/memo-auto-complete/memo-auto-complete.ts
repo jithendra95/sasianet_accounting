@@ -4,8 +4,9 @@ import 'rxjs/add/operator/map';
 
 import { Storage } from '@ionic/storage';
 
-import {Http,Headers,RequestOptions } from '@angular/http';
+
 import {SERVICE_URL} from '../../app/app.config';
+import { HTTP } from '@ionic-native/http';
 
 /*
   Generated class for the MemoAutoCompleteProvider provider.
@@ -19,7 +20,7 @@ export class MemoAutoCompleteProvider implements AutoCompleteService {
   labelAttribute = "Name";
   formValueAttribute = ""
   clientList =[];
-    constructor(private http:Http,private storage:Storage) {
+    constructor(private http:HTTP,private storage:Storage) {
     
     }
 
@@ -80,21 +81,26 @@ export class MemoAutoCompleteProvider implements AutoCompleteService {
        this.storage.get('email').then(email=>{
          this.storage.get('token').then(token=>{
            this.storage.get('schema').then( schema=>{
-             var headers = new Headers();
+             /*var headers = new Headers();
              headers.append("Accept", 'application/json');
              headers.append('Content-Type', 'application/json' );
              headers.append('Authorization', 'Basic ' +token);
-             let options = new RequestOptions({ headers: headers });
+             let options = new RequestOptions({ headers: headers });*/
           
              /*let getParams = {
                user_id: userId,
                connect_schema :schema
              }*/
-             
-             this.http.get(SERVICE_URL+"client/get_client_list?user_id="+email+"&connect_schema="+schema
-                                , options)
-               .subscribe(data => {
-                  let jsonData=data.json();
+             let headers={'Accept': 'application/json',
+                     'Authorization': 'Basic ' + token
+                     }
+          this.http.setDataSerializer('json');
+
+
+             this.http.get(SERVICE_URL+"client/get_client_list?user_id="+email+"&connect_schema="+schema,''
+                                , headers)
+               .then(data => {
+                  let jsonData=JSON.parse(data.data);
                   this.clientList=jsonData;
                   
                   

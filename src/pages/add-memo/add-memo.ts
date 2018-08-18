@@ -3,13 +3,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Memo } from '../../model/Memo';
 
 
-import {Http,Headers,RequestOptions } from '@angular/http';
+
 import {SERVICE_URL} from '../../app/app.config';
 import { InterfaceProvider } from '../../providers/interface/interface';
 import { Storage } from '@ionic/storage';
 
 import {MemoAutoCompleteProvider} from '../../providers/memo-auto-complete/memo-auto-complete';
 import { Client } from '../../model/Client';
+
+import { HTTP } from '@ionic-native/http';
 
 /**
  * Generated class for the AddMemoPage page.
@@ -39,7 +41,7 @@ export class AddMemoPage {
   stopWatchStatus='start'
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public storage:Storage,public http: Http,public intProv:InterfaceProvider,
+              public storage:Storage,public http: HTTP,public intProv:InterfaceProvider,
               public memoService:MemoAutoCompleteProvider) {
 
               this.startTimer();
@@ -98,11 +100,11 @@ export class AddMemoPage {
   this.storage.get('email').then(email=>{
     this.storage.get('token').then(token=>{
       this.storage.get('schema').then( schema=>{
-        var headers = new Headers();
+        /*var headers = new Headers();
         headers.append("Accept", 'application/json');
         headers.append('Content-Type', 'application/json' );
         headers.append('Authorization', 'Basic ' +token);
-        let options = new RequestOptions({ headers: headers });
+        let options = new RequestOptions({ headers: headers });*/
      
         /*let getParams = {
           user_id: userId,
@@ -111,12 +113,17 @@ export class AddMemoPage {
         let loader=this.intProv.presentLoading();
         loader.present();
 
+        let headers={'Accept': 'application/json',
+        'Authorization': 'Basic ' + token
+        }
+        this.http.setDataSerializer('json');
+
         let postParams = this.memo;
 
         this.http.post(SERVICE_URL+"memo/save_memo?user_id="+email+"&connect_schema="+schema
-                       ,postParams , options)
-          .subscribe(data => {
-            let jsonData=data.json();
+                       ,postParams , headers)
+          .then(data => {
+            let jsonData=JSON.parse(data.data);
             console.log(jsonData);
 
             this.intProv.presentToast("Memo added Successfully ");

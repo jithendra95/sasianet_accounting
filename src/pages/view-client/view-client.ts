@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
-import {Http,Headers,RequestOptions } from '@angular/http';
+import { HTTP } from '@ionic-native/http';
 import {SERVICE_URL} from '../../app/app.config';
 import { InterfaceProvider } from '../../providers/interface/interface';
 import { AddClientPage } from '../add-client/add-client';
@@ -24,7 +24,7 @@ export class ViewClientPage {
 
   
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private storage:Storage,public http: Http,public intProv:InterfaceProvider) {
+    private storage:Storage,public http: HTTP,public intProv:InterfaceProvider) {
 
    this.getClientList();
    
@@ -45,22 +45,26 @@ export class ViewClientPage {
     this.storage.get('email').then(email=>{
       this.storage.get('token').then(token=>{
         this.storage.get('schema').then( schema=>{
-          var headers = new Headers();
+         /* var headers = new Headers();
           headers.append("Accept", 'application/json');
           headers.append('Content-Type', 'application/json' );
           headers.append('Authorization', 'Basic ' +token);
-          let options = new RequestOptions({ headers: headers });
+          let options = new RequestOptions({ headers: headers });*/
        
           /*let getParams = {
             user_id: userId,
             connect_schema :schema
           }*/
+          let headers={'Accept': 'application/json',
+              'Authorization': 'Basic ' + token
+              }
+              this.http.setDataSerializer('json');
           let loader=this.intProv.presentLoading();
           loader.present();
-          this.http.get(SERVICE_URL+"client/get_client_list?user_id="+email+"&connect_schema="+schema
-                             , options)
-            .subscribe(data => {
-              let jsonData=data.json();
+          this.http.get(SERVICE_URL+"client/get_client_list?user_id="+email+"&connect_schema="+schema,
+                             '', headers)
+            .then(data => {
+              let jsonData=JSON.parse(data.data);
               console.log(jsonData);
                this.clientList=jsonData;
                 loader.dismiss();

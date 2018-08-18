@@ -3,10 +3,11 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Client } from '../../model/Client';
 
 
-import {Http,Headers,RequestOptions } from '@angular/http';
+
 import {SERVICE_URL} from '../../app/app.config';
 import { InterfaceProvider } from '../../providers/interface/interface';
 import { Storage } from '@ionic/storage';
+import { HTTP } from '@ionic-native/http';
 /**
  * Generated class for the AddClientPage page.
  *
@@ -24,7 +25,7 @@ export class AddClientPage {
   mode ='New';
   client = {} as Client;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public storage:Storage,public http: Http,public intProv:InterfaceProvider) {
+              public storage:Storage,public http: HTTP,public intProv:InterfaceProvider) {
 
                 if(this.navParams.get('client')!=null){
                   this.client=this.navParams.get('client');
@@ -53,11 +54,11 @@ export class AddClientPage {
     this.storage.get('email').then(email=>{
       this.storage.get('token').then(token=>{
         this.storage.get('schema').then( schema=>{
-          var headers = new Headers();
+         /* var headers = new Headers();
           headers.append("Accept", 'application/json');
           headers.append('Content-Type', 'application/json' );
           headers.append('Authorization', 'Basic ' +token);
-          let options = new RequestOptions({ headers: headers });
+          let options = new RequestOptions({ headers: headers });**/
        
           /*let getParams = {
             user_id: userId,
@@ -66,12 +67,17 @@ export class AddClientPage {
           let loader=this.intProv.presentLoading();
           loader.present();
 
+          let headers={'Accept': 'application/json',
+              'Authorization': 'Basic ' + token
+              }
+          this.http.setDataSerializer('json');
+
           let getParams = this.client;
 
           this.http.post(SERVICE_URL+"client/save_client?user_id="+email+"&connect_schema="+schema
-                         ,getParams , options)
-            .subscribe(data => {
-              let jsonData=data.json();
+                         ,getParams , headers)
+            .then(data => {
+              let jsonData=JSON.parse(data.data);
               console.log(jsonData);
 
               this.intProv.presentToast("Client added Successfully "+jsonData.Id);
@@ -94,25 +100,32 @@ export class AddClientPage {
     this.storage.get('email').then(email=>{
       this.storage.get('token').then(token=>{
         this.storage.get('schema').then( schema=>{
-          var headers = new Headers();
+          /*var headers = new Headers();
           headers.append("Accept", 'application/json');
           headers.append('Content-Type', 'application/json' );
           headers.append('Authorization', 'Basic ' +token);
-          let options = new RequestOptions({ headers: headers });
+          let options = new RequestOptions({ headers: headers });*/
        
           /*let getParams = {
             user_id: userId,
             connect_schema :schema
           }*/
+
+          let headers={'Accept': 'application/json',
+              'Authorization': 'Basic ' + token
+              }
+          this.http.setDataSerializer('json');
+
+
           let loader=this.intProv.presentLoading();
           loader.present();
 
           let getParams = this.client;
 
           this.http.post(SERVICE_URL+"client/modify_client?user_id="+email+"&connect_schema="+schema
-                         ,getParams , options)
-            .subscribe(data => {
-              let jsonData=data.json();
+                         ,getParams , headers)
+            .then(data => {
+              let jsonData=JSON.parse(data.data);
               console.log(jsonData);
 
               this.intProv.presentToast("Client edited Successfully "+jsonData.Id);
