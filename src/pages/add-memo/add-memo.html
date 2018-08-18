@@ -9,6 +9,12 @@
 
   <ion-navbar color='primary'>
     <ion-title>Add Memo</ion-title>
+
+    
+  <ion-buttons end >
+      <button ion-button (click)='saveMemo()'> Save</button>
+</ion-buttons> 
+
   </ion-navbar>
 
 </ion-header>
@@ -19,15 +25,15 @@
   <ion-grid class='black_shade'>
      <ion-row>
           <ion-col col-12>
-            <ion-auto-complete [dataProvider]="memoService" [(ngModel)]="this.memo.Id" [options]="{ placeholder : 'Search client' }"></ion-auto-complete>
+            <ion-auto-complete [dataProvider]="memoService" [(ngModel)]="this.client" [options]="{ placeholder : 'Search client' }"></ion-auto-complete>
             
 
             <ion-label stacked>Client Code</ion-label>
-            <ion-input type="text" [(ngModel)]="this.memo.Id" disabled></ion-input>
+            <ion-input type="text" [(ngModel)]="this.client.Id" disabled></ion-input>
 
             <ion-label stacked>Memo</ion-label>
             <ion-textarea  [(ngModel)]="this.memo.Memo" text-wrap></ion-textarea>
-
+    
           </ion-col>
         </ion-row>
    </ion-grid>
@@ -36,17 +42,23 @@
 
    <ion-grid class='black_shade'>
     <ion-row>
-         <ion-col col-6>
+         <ion-col col-4 aling='left'>
            
            <ion-label stacked>Start Time</ion-label>
            <ion-input  [(ngModel)]="this.memo.Start_time" ></ion-input>
          </ion-col>
-        <ion-col col-6>
+        <ion-col col-4 aling='left'>
           
            <ion-label stacked>End Time</ion-label>
            <ion-input  [(ngModel)]="this.memo.End_time" ></ion-input>
+          
 
 
+         </ion-col>
+
+         <ion-col col-4 align='center'>
+         <button ion-button  *ngIf='this.stopWatchStatus=="start"' (click)='stopTimer()'  color='danger'>Stop</button>
+         <button ion-button  *ngIf='this.stopWatchStatus=="stop"' (click)='startTimer()'  color='secondary'>Start</button>
          </ion-col>
        </ion-row>
   </ion-grid>
@@ -59,7 +71,7 @@
          <ion-col col-8 align='center'>
            
            <ion-label stacked>Time Spent</ion-label><br/>
-           00h  00mm {{this.timeDiffSS}}ss
+           {{this.timeDiffH}}H  {{this.timeDiffMM}}Min {{this.timeDiffSS}}Sec
          </ion-col>
          <ion-col col-2></ion-col>
        </ion-row>

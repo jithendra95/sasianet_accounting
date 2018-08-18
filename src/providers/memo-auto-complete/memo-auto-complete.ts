@@ -17,7 +17,7 @@ import {SERVICE_URL} from '../../app/app.config';
 export class MemoAutoCompleteProvider implements AutoCompleteService {
 
   labelAttribute = "Name";
-  formValueAttribute = "Id"
+  formValueAttribute = ""
   clientList =[];
     constructor(private http:Http,private storage:Storage) {
     

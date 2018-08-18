@@ -77,7 +77,7 @@ export class AddClientPage {
               this.intProv.presentToast("Client added Successfully "+jsonData.Id);
               this.clearFields();
               loader.dismiss();
-              this.navCtrl.pop();
+              //this.navCtrl.pop();
                
              }, error => {
                loader.dismiss();

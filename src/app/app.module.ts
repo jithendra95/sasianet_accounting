@@ -16,7 +16,6 @@ import { ViewDashboardPage } from '../pages/view-dashboard/view-dashboard';
 import { LoginPage } from '../pages/login/login';
 import { IonicStorageModule } from '@ionic/storage';
 import { InterfaceProvider } from '../providers/interface/interface';
-import { ClientServiceProvider } from '../providers/client-service/client-service';
 import {  HttpModule } from '@angular/http';
 import { HideFabDirective } from '../directives/hide-fab/hide-fab';
 import { AddClientPage } from '../pages/add-client/add-client';
@@ -26,6 +25,7 @@ import { AutoCompleteModule } from 'ionic2-auto-complete';
 
 import { IonTextAvatar } from 'ionic-text-avatar';
 import { MemoAutoCompleteProvider } from '../providers/memo-auto-complete/memo-auto-complete';
+import { HTTP } from '@ionic-native/http';
 @NgModule({
   declarations: [
     MyApp,
@@ -69,7 +69,8 @@ import { MemoAutoCompleteProvider } from '../providers/memo-auto-complete/memo-a
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     InterfaceProvider,
-    MemoAutoCompleteProvider
+    MemoAutoCompleteProvider,
+    HTTP
     
   ]
 })

@@ -97,10 +97,11 @@ export class LoginPage {
 
               }else{
 
-                this.intProv.presentToast("Invalida Credentials");
+                this.intProv.presentToast("Invalid Credentials");
               }
             }, error => {
-              console.log(error);// Error getting the data
+              this.intProv.presentToast(error.toString());
+              console.log(error.toString());// Error getting the data
             });
         
   }else{

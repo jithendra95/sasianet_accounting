@@ -4,7 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { ViewClientPage } from '../pages/view-client/view-client';
 import { ViewMemoPage } from '../pages/view-memo/view-memo';
 import { ViewDiaryPage } from '../pages/view-diary/view-diary';
@@ -34,6 +33,7 @@ export class MyApp {
   constructor(public platform: Platform, public statusBar: StatusBar, 
               public splashScreen: SplashScreen,private storage: Storage,
               public menu:MenuController,public events: Events) {
+
 
                 events.subscribe('user:login', () => {
                   // user and time are the same arguments passed in `events.publish(user, time)`
