@@ -12,6 +12,7 @@ import {MemoAutoCompleteProvider} from '../../providers/memo-auto-complete/memo-
 import { Client } from '../../model/Client';
 
 import { HTTP } from '@ionic-native/http';
+import { Platform } from 'ionic-angular';
 
 /**
  * Generated class for the AddMemoPage page.
@@ -37,14 +38,21 @@ export class AddMemoPage {
 
   timeStart=0;
   interval:any;
+  isIOS=false;
+  imageUrl:any;
 
   stopWatchStatus='start'
-
+  displayImgUrl =[];
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public storage:Storage,public http: HTTP,public intProv:InterfaceProvider,
-              public memoService:MemoAutoCompleteProvider) {
+              public memoService:MemoAutoCompleteProvider,public plt: Platform) {
 
               this.startTimer();
+
+              if (this.plt.is('ios')) {
+                this.isIOS=true;
+              }
+              
   }
 
  
@@ -165,6 +173,80 @@ validateFields()
   }else{
     return true;
   }
+}
+
+
+public onFileFromStorageChosen(filesEvent: any) {
+  this.processFileFromStorage(filesEvent);
+}
+
+public processFileFromStorage(event: any) {
+  let file = event.target.files[0];
+  //you can read various properties of the file (like mimetype and size) from the file object.
+  var ext = file.name.substr(file.name.lastIndexOf('.') + 1);
+  console.log(file);
+  if(ext.toLowerCase()=='jpeg' || ext.toLowerCase()=='jpg' || ext.toLowerCase()=='png' || ext.toLowerCase()=='gif'
+     || ext.toLowerCase()=='doc' || ext.toLowerCase()=='docx' 
+     || ext.toLowerCase()=='xls' || ext.toLowerCase()=='xlsx'
+     || ext.toLowerCase()=='pdf'){
+    this.readfile(file);
+  }else{
+     this.intProv.presentToast('This file type is not allowed');
+  }
+  
+}
+
+//this one reads the contents of the file as a URL that contains its data:
+
+public readfile(file: any): void {
+  let reader = new FileReader();
+  var ext = file.name.substr(file.name.lastIndexOf('.') + 1);
+
+  
+  reader.onload = (e) => {
+    let dataUrl = reader.result;
+    //and do something with the reader.
+    //console.log(dataUrl)
+    this.imageUrl=dataUrl;
+    try{
+      this.memo.File_seq.push(dataUrl);
+
+      if(ext.toLowerCase()=='jpeg' || ext.toLowerCase()=='jpg' || ext.toLowerCase()=='png' || ext.toLowerCase()=='gif'){
+        this.displayImgUrl.push({'img':dataUrl,'data':dataUrl});
+      }else if(ext.toLowerCase()=='doc' || ext.toLowerCase()=='docx' ){
+        this.displayImgUrl.push({'img':'assets/imgs/doc.png','data':dataUrl});
+      }else if(ext.toLowerCase()=='xls' || ext.toLowerCase()=='xlsx' ){
+        this.displayImgUrl.push({'img':'assets/imgs/xls.png','data':dataUrl});
+      }else if(ext.toLowerCase()=='pdf'){
+        this.displayImgUrl.push({'img':'assets/imgs/pdf.jpg','data':dataUrl});
+      }
+      
+    }catch(e){
+      this.memo.File_seq=[dataUrl];
+
+      if(ext.toLowerCase()=='jpeg' ||ext.toLowerCase()=='jpg' || ext.toLowerCase()=='png' || ext.toLowerCase()=='gif'){
+        this.displayImgUrl.push({'img':dataUrl,'data':dataUrl});
+      }else if(ext.toLowerCase()=='doc' || ext.toLowerCase()=='docx' ){
+        this.displayImgUrl.push({'img':'assets/imgs/doc.png','data':dataUrl});
+      }else if(ext.toLowerCase()=='xls' || ext.toLowerCase()=='xlsx' ){
+        this.displayImgUrl.push({'img':'assets/imgs/xls.png','data':dataUrl});
+      }else if(ext.toLowerCase()=='pdf'){
+        this.displayImgUrl.push({'img':'assets/imgs/pdf.jpg','data':dataUrl});
+      }
+      
+    }
+    
+  };
+  reader.readAsDataURL(file);
+}
+
+
+removeImage(image){
+  const index: number = this.memo.File_seq.indexOf(image);
+    if (index !== -1) {
+        this.memo.File_seq.splice(index, 1);
+        this.displayImgUrl.splice(index, 1);
+    } 
 }
 
 }

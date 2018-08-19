@@ -18,7 +18,7 @@ export class HomePage {
   undreadNotification=0;
 
   constructor(public navCtrl: NavController,public menu:MenuController,
-                private alertCtrl:AlertController) {
+                private alertCtrl:AlertController,private storage: Storage) {
 
   }
 
@@ -79,6 +79,10 @@ export class HomePage {
   logout(){
 
      this.menu.enable(false);
+     this.storage.set('status', false);
+     this.storage.set('email', '');
+     this.storage.set('password', '');
+     this.storage.set('token', '');
      this.navCtrl.setRoot(LoginPage);
   }
 }

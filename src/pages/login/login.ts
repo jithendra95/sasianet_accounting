@@ -49,7 +49,7 @@ export class LoginPage {
 
   let loader=this.intProv.presentLoading();
   //loader.present();
-
+  this.email=this.email.trim();
   if(this.validateInput()){
 
           let hashPassword=CryptoJS.SHA1(this.password).toString();
@@ -70,6 +70,10 @@ export class LoginPage {
           this.http.post(SERVICE_URL+"User/Validate?email="+this.email+"&password="+hashPassword
                             ,getParams, headers)
             .then(data => {
+
+              
+
+              
               let returnData=JSON.parse(data.data);
               console.log(returnData);
               if(this.email==returnData[0] && returnData[2]!=null){
@@ -103,6 +107,7 @@ export class LoginPage {
 
                 this.intProv.presentToast("Invalid Credentials");
               }
+             
             }, error => {
               this.intProv.presentToast(error.toString());
               console.log(error.toString());// Error getting the data

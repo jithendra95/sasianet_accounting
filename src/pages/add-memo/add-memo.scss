@@ -12,6 +12,95 @@ page-add-memo {
             width: 100%;
           }
 
+  .buttons-row,
+  .buttons-col {
+    margin: 0;
+    padding: 0;
+  }
+
+  /* This class here overlays the file input above the "Upload Document" button in iOS
+  * Otherwise is not possible to trigger an File input element programmatically in iOS.
+  */
+  .ios-file-input{
+    position: absolute;
+    opacity: 0;
+    z-index: 1;
+    width: 100%;
+    min-height: 155px;  /*Height must be a bit less than the height of the "Upload Document" button.*/
+  }
+
+  .uploadImg{
+      width:75px;
+      height: 75px;
+  }
+
+
+
+    .images-wrapper {
+      font-size: 0;
+      .image-wrapper {
+        display: inline-block;
+        margin: 0;
+        width: 33.3333%;
+        box-sizing: border-box;
+        padding: 1px;
+        position: relative;
+        .remove-image {
+          z-index: 100;
+          position: absolute;
+          right: 1px;
+          top: 1px;
+          padding: 5px 6px;
+          font-size: 20px;
+          text-shadow: white 0 0 1px;
+        }
+        ion-spinner {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          * {
+            stroke: white;
+          }
+        }
+        .image {
+          position: relative;
+          background-size: cover;
+          background-position: center center;
+          img {
+            width: 100%;
+            &.uploading {
+              background: rgba(0, 0, 0, 0.20);
+            }
+          }
+          ion-icon {
+            font-size: 50px;
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+            color: white;
+          }
+          .progress-bar {
+            height: 6px;
+            width: 100%;
+            position: absolute;
+            bottom: 0px;
+            overflow: hidden;
+            .progress {
+              background: map_get($colors, 'primary');
+              height: 100%;
+            }
+          }
+        }
+  
+        &.add-image-btn .image {
+          background: #DDD;
+        }
+      }
+    }
+  
+  
           
 }
 

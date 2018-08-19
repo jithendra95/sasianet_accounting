@@ -77,4 +77,72 @@
        </ion-row>
   </ion-grid>
 
+  <br/>
+
+
+  <ion-grid class='black_shade'>
+
+      <ion-row>
+          <ion-col col-12 >
+              <div>
+                  <div class="images-wrapper">
+                    <div class="image-wrapper" *ngFor="let image of this.displayImgUrl">
+                      <ion-icon class="remove-image" name="close" (click)="removeImage(image.data)"></ion-icon>
+                      <div class="image" [style.background-image]="image">
+                        <img src= {{image.img}} class='uploadImg' alt=""/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </ion-col>
+          </ion-row>
+
+      <ion-row>
+           <ion-col col-12 >
+            <!-- The "Upload File" button in Android. The File Input element is jus hidden and the button calls the its .click() method -->
+            <div *ngIf="!isIOS">
+                <ion-row class="buttons-row">
+                  <ion-col class="buttons-col">
+                    <button ion-button full small icon-left class="top-button" (click)="fileInput.click()">
+                      <ion-icon name="folder"></ion-icon>
+                      Upload File
+                    </button>
+                  </ion-col>
+                </ion-row>
+                <div hidden><input type="file" id="fileUpload" #fileInput (change)="onFileFromStorageChosen($event)" /></div>
+              </div>
+            
+              
+              <!-- The "Upload File" button in iOS. The File Input element displayed as transparent and overlayed on top of the button -->
+              <div *ngIf="isIOS">
+                <ion-row class="buttons-row">
+                  <ion-col class="buttons-col">
+                    <input type="file" id="fileUpload" class="ios-file-input" (change)="onFileFromStorageChosen($event)" />
+                    <button ion-button full small icon-left class="top-button">
+                      <ion-icon name="folder"></ion-icon>
+                      Upload File
+                    </button>
+                  </ion-col>
+                </ion-row>
+              </div>
+        </ion-col>
+     </ion-row>
+
+    <!--ion-row >
+        
+
+      <ion-col col-12 align='center'>
+        <div *ngFor='let item of this.displayImgUrl'>
+         <img class='uploadImg' (click)="uploadImage()" src= {{item}} >
+        </div>
+      </ion-col>
+
+   
+
+  </ion-row-->
+</ion-grid>
+
+
+
+
 </ion-content>
