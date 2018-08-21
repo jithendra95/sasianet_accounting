@@ -26,6 +26,8 @@ import { AutoCompleteModule } from 'ionic2-auto-complete';
 import { IonTextAvatar } from 'ionic-text-avatar';
 import { MemoAutoCompleteProvider } from '../providers/memo-auto-complete/memo-auto-complete';
 import { HTTP } from '@ionic-native/http';
+
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 @NgModule({
   declarations: [
     MyApp,
@@ -70,7 +72,8 @@ import { HTTP } from '@ionic-native/http';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     InterfaceProvider,
     MemoAutoCompleteProvider,
-    HTTP
+    HTTP,
+    FileTransfer
     
   ]
 })

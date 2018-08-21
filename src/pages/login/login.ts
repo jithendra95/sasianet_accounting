@@ -86,7 +86,7 @@ export class LoginPage {
                 
 
                 loader.dismiss();
-                this.directUser(returnData[2],returnData[8]);
+                this.directUser(returnData[2],returnData[8],returnData[7]);
 
               }else if(this.email==returnData[0] && returnData[2]==null){
                 
@@ -127,7 +127,7 @@ export class LoginPage {
 
            let btnObj={text:item.Name,
                    handler : ()=>{
-                         this.directUser(item.Id,item.Name) 
+                         this.directUser(item.Id,item.Name,item.Client_id) 
                        }
                      };
             buttonArr.push(btnObj);         
@@ -154,10 +154,11 @@ export class LoginPage {
       actionSheet.present();
     }
 
- directUser(schema,name){
+ directUser(schema,name,client_id){
  
   this.storage.set('schema',schema);
   this.storage.set('system_name',name);
+  this.storage.set('client_id',client_id);
   this.events.publish('user:login');
   this.navCtrl.setRoot(HomePage);
  }   

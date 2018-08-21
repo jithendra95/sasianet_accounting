@@ -38,12 +38,12 @@
           <br/><br/><br/>
         <ion-row>
 
-          <ion-col col-6 align='center' (click)='buttonClick("memo")'>
-            <img src='assets/imgs/memo_icon.png' class='profileImg'>
+          <ion-col col-6 align='center' (click)='buttonClick("client")'>
+            <img src='assets/imgs/diary_icon.png' class='profileImg'>
           </ion-col>
 
-          <ion-col col-6 align='center' (click)='buttonClick("diary")'>
-              <img src='assets/imgs/diary_icon.png' class='profileImg'>
+          <ion-col col-6 align='center' (click)='buttonClick("memo")'>
+              <img src='assets/imgs/memo_icon.png' class='profileImg'>
           </ion-col>
        
         </ion-row>
@@ -51,11 +51,11 @@
         <ion-row>
 
              <ion-col col-6 align='center'>
-                Memo
+                Client
               </ion-col>
     
               <ion-col col-6 align='center'>
-                Diary
+                Memo 
               </ion-col>  
                   
        </ion-row>
@@ -68,8 +68,8 @@
            <img src='assets/imgs/approval_icon.png' class='profileImg'>
          </ion-col>
 
-         <ion-col col-6 align='center' (click)='buttonClick("dashboard")'>
-             <img src='assets/imgs/dashboard_icon.png' class='profileImg'>
+         <ion-col col-6 align='center' (click)='buttonClick("diary")'>
+             <img src='assets/imgs/diary_icon.png' class='profileImg'>
          </ion-col>
       
        </ion-row>
@@ -81,11 +81,26 @@
              </ion-col>
    
              <ion-col col-6 align='center'>
-               Dashboard
+              Diary 
              </ion-col>  
                  
       </ion-row>
-      </ion-grid>
+
+
+      <br/>
+
+      <ion-row>
+        <ion-col col-12 align='center' (click)='buttonClick("dashboard")'>
+          <img src='assets/imgs/dashboard_icon.png' class='profileImg'>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+           <ion-col col-12 align='center'>
+              Dashboard
+            </ion-col>
+     </ion-row>
+  </ion-grid>
 
 
 </ion-content>

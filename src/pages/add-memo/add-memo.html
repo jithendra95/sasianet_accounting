@@ -97,7 +97,7 @@
             </ion-col>
           </ion-row>
 
-      <ion-row>
+      <ion-row *ngIf='this.client.Id'>
            <ion-col col-12 >
             <!-- The "Upload File" button in Android. The File Input element is jus hidden and the button calls the its .click() method -->
             <div *ngIf="!isIOS">

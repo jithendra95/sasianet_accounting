@@ -8,6 +8,7 @@ import { LoginPage } from '../login/login';
 import { MenuController } from 'ionic-angular/components/app/menu-controller';
 import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 import { Storage } from '@ionic/storage';
+import { ViewClientPage } from '../view-client/view-client';
 
 @Component({
   selector: 'page-home',
@@ -30,7 +31,10 @@ export class HomePage {
         this.navCtrl.setRoot(ViewMemoPage);
         //this.navCtrl.pop();
         break; 
-      } 
+      } case 'client': { 
+        this.navCtrl.setRoot(ViewClientPage);
+         break; 
+      }
       case 'diary': { 
         this.navCtrl.setRoot(ViewDiaryPage);
         //this.navCtrl.pop();
