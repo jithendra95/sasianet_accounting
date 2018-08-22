@@ -107,9 +107,6 @@ export class ViewMemoPage {
         this.navCtrl.push(AddMemoPage);
       }
     
-      editMemo(selectedClient){
-        console.log(selectedClient);
-        this.navCtrl.push(AddMemoPage,{client:selectedClient});
-      }
+     
 
 }

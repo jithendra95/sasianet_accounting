@@ -7,6 +7,6 @@ export class Memo{
         Start_time:string;
         End_date:string;
         End_time:string;
-        File_seq_array:[any];
+        File_seq_list:[any];
         Service:string;
     }

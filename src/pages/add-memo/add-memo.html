@@ -22,6 +22,50 @@
 
 <ion-content padding>
 
+    <ion-grid class='black_shade'>
+        <ion-row>
+             <ion-col col-5 aling='left'>
+               
+               <ion-label stacked>Start Time</ion-label>
+               <ion-input  [(ngModel)]="this.memo.Start_time" ></ion-input>
+
+             </ion-col>
+            <ion-col col-5 aling='left'>
+              
+               <ion-label stacked>End Time</ion-label>
+               <ion-input  [(ngModel)]="this.memo.End_time" ></ion-input>
+               </ion-col>
+
+               <ion-col col-2 aling='center'>
+
+               <button ion-button icon-only class='playBtn' *ngIf='this.stopWatchStatus=="stop"' (click)="startTimer()" color='secondary'>
+                  <ion-icon name="play" ></ion-icon  >
+               </button>
+              <button ion-button icon-only  class='playBtn' *ngIf='this.stopWatchStatus=="start"' (click)="stopTimer()" color="danger">
+                <ion-icon name="square"  ></ion-icon>
+              </button>
+
+             </ion-col>
+           </ion-row>
+         
+      </ion-grid>
+    
+      <br/>
+    
+      <ion-grid class='black_shade'>
+        <ion-row>
+          <ion-col col-2></ion-col>
+             <ion-col col-8 align='center'>
+               
+               <ion-label stacked>Time Spent</ion-label><br/>
+               {{this.timeDiffH}}H  {{this.timeDiffMM}}Min {{this.timeDiffSS}}Sec
+             </ion-col>
+             <ion-col col-2></ion-col>
+           </ion-row>
+      </ion-grid>
+    
+      <br/>
+
   <ion-grid class='black_shade'>
      <ion-row>
           <ion-col col-12>
@@ -31,54 +75,26 @@
             <ion-label stacked>Client Code</ion-label>
             <ion-input type="text" [(ngModel)]="this.client.Id" disabled></ion-input>
 
-            <ion-label stacked>Memo</ion-label>
-            <ion-textarea  [(ngModel)]="this.memo.Memo" text-wrap></ion-textarea>
-    
           </ion-col>
         </ion-row>
    </ion-grid>
 
    <br/>
 
-   <ion-grid class='black_shade'>
-    <ion-row>
-         <ion-col col-4 aling='left'>
-           
-           <ion-label stacked>Start Time</ion-label>
-           <ion-input  [(ngModel)]="this.memo.Start_time" ></ion-input>
-         </ion-col>
-        <ion-col col-4 aling='left'>
-          
-           <ion-label stacked>End Time</ion-label>
-           <ion-input  [(ngModel)]="this.memo.End_time" ></ion-input>
-          
-
-
-         </ion-col>
-
-         <ion-col col-4 align='center'>
-         <button ion-button  *ngIf='this.stopWatchStatus=="start"' (click)='stopTimer()'  color='danger'>Stop</button>
-         <button ion-button  *ngIf='this.stopWatchStatus=="stop"' (click)='startTimer()'  color='secondary'>Start</button>
-         </ion-col>
-       </ion-row>
-  </ion-grid>
-
-  <br/>
+   
 
   <ion-grid class='black_shade'>
     <ion-row>
-      <ion-col col-2></ion-col>
-         <ion-col col-8 align='center'>
-           
-           <ion-label stacked>Time Spent</ion-label><br/>
-           {{this.timeDiffH}}H  {{this.timeDiffMM}}Min {{this.timeDiffSS}}Sec
+         <ion-col col-12>
+        
+           <ion-label stacked>Memo</ion-label>
+           <ion-textarea  [(ngModel)]="this.memo.Memo" text-wrap></ion-textarea>
+   
          </ion-col>
-         <ion-col col-2></ion-col>
        </ion-row>
   </ion-grid>
 
   <br/>
-
 
   <ion-grid class='black_shade'>
 
@@ -97,7 +113,7 @@
             </ion-col>
           </ion-row>
 
-      <ion-row *ngIf='this.client.Id'>
+      <ion-row>
            <ion-col col-12 >
             <!-- The "Upload File" button in Android. The File Input element is jus hidden and the button calls the its .click() method -->
             <div *ngIf="!isIOS">

@@ -36,7 +36,7 @@ export class AddMemoPage {
   mode ='New';
   memo = {} as Memo;
   client={} as Client;
-  timeDiffH=0;
+  timeDiffH= 0; 
   timeDiffMM=0;
   timeDiffSS=0;
 
@@ -47,7 +47,7 @@ export class AddMemoPage {
   imageUrl:any;
 
 
-  stopWatchStatus='start'
+  stopWatchStatus='stop'
   displayImgUrl =[];
   dataImgUrl =[];
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -55,7 +55,7 @@ export class AddMemoPage {
               public memoService:MemoAutoCompleteProvider,public plt: Platform,
               public httpNew :Http,public transfer:FileTransfer) {
 
-              this.startTimer();
+              //this.startTimer();
 
               if (this.plt.is('ios')) {
                 this.isIOS=true;
@@ -64,22 +64,22 @@ export class AddMemoPage {
   }
 
  
-
+  
   startTimer(){
 
-    this.timeDiffH=0;
+   /* this.timeDiffH=0;
     this.timeDiffMM=0;
     this.timeDiffSS=0;
-    this.timeStart=0;
+    this.timeStart=0;*/
     this.stopWatchStatus='start';
     
 
     let date=new Date()
-    this.memo.Start_time=(date.getHours() + ':' + date.getMinutes()+ ':' +date.getSeconds());
-    this.memo.Start_date=date.getDate() +'-'+((date.getMonth() + 1)) +'-'+date.getFullYear();
+    this.memo.Start_time=(("0"+date.getHours()).slice(-2) + ':' + ("0"+date.getMinutes()).slice(-2)+ ':' +("0"+date.getSeconds()).slice(-2));
+    this.memo.Start_date=("0"+date.getDate()).slice(-2) +'-'+("0"+(date.getMonth() + 1)).slice(-2) +'-'+date.getFullYear();
 
     this.timeStart=new Date().getTime();
-    this.memo.End_time=(new Date()).toLocaleTimeString();
+    
 
 
     console.log(this.memo.Start_date);
@@ -87,8 +87,7 @@ export class AddMemoPage {
    this.interval = setInterval(()=>{
      
       let date=new Date()
-      this.memo.End_time=(date.getHours() + ':' + date.getMinutes()+ ':' +date.getSeconds());
-      
+      this.memo.End_time=(("0"+date.getHours()).slice(-2) + ':' + ("0"+date.getMinutes()).slice(-2)+ ':' +("0"+date.getSeconds()).slice(-2));
    
         this.timeDiffSS=Math.round(((new Date().getTime() - this.timeStart)/1000))%60;
         this.timeDiffMM=Math.floor((Math.round(((new Date().getTime() - this.timeStart)/1000))/60)%60);
@@ -110,7 +109,8 @@ export class AddMemoPage {
     if(this.mode=='New'){
      
       let date=new Date()
-      this.memo.End_date=date.getDate() +'-'+((date.getMonth() + 1)) +'-'+date.getFullYear();
+      this.memo.End_date=("0"+date.getDate()).slice(-2) +'-'+("0"+(date.getMonth() + 1)).slice(-2) +'-'+date.getFullYear()
+      
 
       
       this.memo.Name=this.client.Id;
@@ -154,7 +154,7 @@ export class AddMemoPage {
             this.intProv.presentToast("Memo added Successfully "+jsonData.Id);
             this.clearFields();
             loader.dismiss();
-            //this.navCtrl.pop();
+            this.navCtrl.pop();
              
            }, error => {
              loader.dismiss();
@@ -174,7 +174,7 @@ clearFields(){
   this.memo.Start_time="";
   this.memo.End_date="";
   this.memo.End_time="";
-  this.memo.File_seq_array=[String];
+  this.memo.File_seq_list=[String];
   this.displayImgUrl =[];
   this.dataImgUrl =[];
   this.startTimer();
@@ -271,7 +271,7 @@ public readfile(file: any): void {
 removeImage(image){
   const index: number = this.dataImgUrl.indexOf(image);
     if (index !== -1) {
-        this.memo.File_seq_array.splice(index, 1);
+        this.memo.File_seq_list.splice(index, 1);
         this.displayImgUrl.splice(index, 1);
         this.dataImgUrl.splice(index, 1);
     } 
@@ -280,7 +280,7 @@ removeImage(image){
 
 
 uploadImage(fileName,imageURL){
-if(this.client.Id !="" || this.client.Id !=null){
+
 
   this.storage.get('email').then(email=>{
     this.storage.get('token').then(token=>{
@@ -302,11 +302,11 @@ if(this.client.Id !="" || this.client.Id !=null){
           .then(data => {
 
             try{
-              this.memo.File_seq_array.push(data.data);
-              console.log(this.memo.File_seq_array);
+              this.memo.File_seq_list.push(data.data);
+              console.log(this.memo.File_seq_list);
             }catch(e){
-              this.memo.File_seq_array = [data.data];
-              console.log(this.memo.File_seq_array);
+              this.memo.File_seq_list = [data.data];
+              console.log(this.memo.File_seq_list);
             }
 
             loader.dismiss();
@@ -321,9 +321,7 @@ if(this.client.Id !="" || this.client.Id !=null){
        });
      });
    });  
-}else{
-  this.intProv.presentToast('Please select a client before upload');
-}
+
   
 }
 

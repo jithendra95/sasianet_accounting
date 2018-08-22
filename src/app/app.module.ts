@@ -74,7 +74,6 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
     MemoAutoCompleteProvider,
     HTTP,
     FileTransfer
-    
   ]
 })
 export class AppModule {}

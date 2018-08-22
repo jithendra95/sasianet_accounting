@@ -40,10 +40,11 @@
       <ion-avatar item-start>
           <ion-text-avatar color='secondary'>{{item?.Name?.toUpperCase().substring(0,2)}}</ion-text-avatar>
       </ion-avatar>
-         <ion-grid (click)='editMemo(item)'>
+         <ion-grid >
 
                    <ion-row>
-                       <ion-col col-12 align='left' text-wrap>{{item?.Name}}</ion-col>
+                       <ion-col col-8 align='left' text-wrap>{{item?.Name}}</ion-col>
+                       <ion-col col-4 align='right' text-wrap class='secondTxt'>{{item?.Start_date}}</ion-col>
                   </ion-row>
 
          
@@ -52,8 +53,9 @@
                  </ion-row>
          
                  <ion-row class='secondTxt'> 
-                     <ion-col col-1 align='left' *ngIf='item.Tel_no'><ion-icon name='phone-portrait'></ion-icon></ion-col>
-                       <ion-col col-11>{{item.Start_date}} {{item.Start_time}}</ion-col>
+                       <ion-col col-6>Start : {{item.Start_time}}  </ion-col>
+                       <ion-col col-6 align='right'>End : {{item.Start_time}}  </ion-col>
+                       
                  </ion-row>
 
          </ion-grid>
