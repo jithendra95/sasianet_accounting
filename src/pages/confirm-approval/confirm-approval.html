@@ -1,0 +1,57 @@
+<!--
+  Generated template for the ConfirmApprovalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color='primary'>
+    <ion-title>{{this.header}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-refresher (ionRefresh)="refresh($event)">
+        <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="Pull to refresh"
+            refreshingSpinner="circle"
+            refreshingText="Refreshing...">
+
+        </ion-refresher-content>
+      </ion-refresher>
+
+    <ion-list >
+      <ion-item *ngFor="let item of appList">
+          
+             
+             <ion-label>
+             <ion-grid >
+    
+                      <ion-row>
+                           <ion-col col-12 align='left' >{{item.Id}}</ion-col>
+                      </ion-row>
+
+                     <ion-row>
+                        <ion-col col-12 align='left' class='secondTxt' text-wrap>{{item.Content1}}</ion-col>
+                    </ion-row>
+
+                   <ion-row>
+                      <ion-col col-12 align='left' class='secondTxt' text-wrap>{{item.Content2}}{{item.Content3}}</ion-col>
+                 </ion-row>
+    
+    
+              </ion-grid>
+            </ion-label>
+
+            <ion-checkbox color="secondary"></ion-checkbox>
+
+          </ion-item>
+
+       </ion-list>
+
+</ion-content>

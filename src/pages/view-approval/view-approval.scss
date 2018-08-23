@@ -1,3 +1,13 @@
 page-view-approval {
-
+    .record {
+        ion-label {
+            display: flex;
+            flex-direction: row;
+            align-items: baseline
+        }
+    
+        ion-icon {
+            margin-left: 5px;
+        }
+    }
 }

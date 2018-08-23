@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Approval_item } from '../../model/Approval_Item';
-
 
 import { Storage } from '@ionic/storage';
 
 import { HTTP } from '@ionic-native/http';
 import {SERVICE_URL} from '../../app/app.config';
 import { InterfaceProvider } from '../../providers/interface/interface';
-import { ConfirmApprovalPage } from '../confirm-approval/confirm-approval';
+
 /**
- * Generated class for the ViewApprovalPage page.
+ * Generated class for the ConfirmApprovalPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -18,17 +16,25 @@ import { ConfirmApprovalPage } from '../confirm-approval/confirm-approval';
 
 @IonicPage()
 @Component({
-  selector: 'page-view-approval',
-  templateUrl: 'view-approval.html',
+  selector: 'page-confirm-approval',
+  templateUrl: 'confirm-approval.html',
 })
-export class ViewApprovalPage {
+export class ConfirmApprovalPage {
 
-  appList =[];
+  header="";
+  Id="";
+  appList=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-               private storage:Storage,public http: HTTP,public intProv:InterfaceProvider) {
+              private storage:Storage,public http: HTTP,public intProv:InterfaceProvider) {
 
-                this.getAppList();
+    if(this.navParams.get('Id')!=null){
+      this.header=this.navParams.get('Content')
+      this.Id=this.navParams.get('Id')
+      this.getAppList();
+    } 
+
+
   }
 
   refresh(refresher){
@@ -54,7 +60,7 @@ export class ViewApprovalPage {
               this.http.setDataSerializer('json');
 
 
-              this.http.get(SERVICE_URL+"approval/applevel1?user_id="+email+"&connect_schema="+schema,
+              this.http.get(SERVICE_URL+"approval/applevel2?user_id="+email+"&connect_schema="+schema+"&level1_id="+this.Id,
                                  '', headers)
                 .then(data => {
                   let jsonData=JSON.parse(data.data);
@@ -73,8 +79,6 @@ export class ViewApprovalPage {
          
       }
 
-      confirmApproval(obj){
-        this.navCtrl.push(ConfirmApprovalPage,{Id:obj.Id,Content:obj.Content});
-      }
+  
 
 }

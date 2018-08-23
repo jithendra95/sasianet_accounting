@@ -65,40 +65,63 @@ export class AddMemoPage {
 
  
   
-  startTimer(){
+ async startTimer(startValue){
 
    /* this.timeDiffH=0;
     this.timeDiffMM=0;
     this.timeDiffSS=0;
     this.timeStart=0;*/
+   
+    
+
+  if(startValue=='restart'){
+    
+      let date=new Date()
+      this.memo.Start_time=(("0"+date.getHours()).slice(-2) + ':' + ("0"+date.getMinutes()).slice(-2)+ ':' +("0"+date.getSeconds()).slice(-2));
+      this.memo.Start_date=("0"+date.getDate()).slice(-2) +'-'+("0"+(date.getMonth() + 1)).slice(-2) +'-'+date.getFullYear();
+    
+      this.timeStart=new Date().getTime();
+    
+      this.interval = setInterval(()=>{
+        
+         let date=new Date()
+         this.memo.End_time=(("0"+date.getHours()).slice(-2) + ':' + ("0"+date.getMinutes()).slice(-2)+ ':' +("0"+date.getSeconds()).slice(-2));
+      
+           this.timeDiffSS=Math.round(((new Date().getTime() - this.timeStart)/1000))%60;
+           this.timeDiffMM=Math.floor((Math.round(((new Date().getTime() - this.timeStart)/1000))/60)%60);
+         
+           this.timeDiffH=Math.floor(Math.round(((new Date().getTime() - this.timeStart)/1000))/(60*60));
+      },60)
+    }else{
+
+      if(this.stopWatchStatus=='stop'){
+
+        let date=new Date()
+        this.memo.Start_time=(("0"+date.getHours()).slice(-2) + ':' + ("0"+date.getMinutes()).slice(-2)+ ':' +("0"+date.getSeconds()).slice(-2));
+        this.memo.Start_date=("0"+date.getDate()).slice(-2) +'-'+("0"+(date.getMonth() + 1)).slice(-2) +'-'+date.getFullYear();
+      
+        this.timeStart=new Date().getTime();
+      }
+      this.interval = setInterval(()=>{
+        
+         let date=new Date()
+         this.memo.End_time=(("0"+date.getHours()).slice(-2) + ':' + ("0"+date.getMinutes()).slice(-2)+ ':' +("0"+date.getSeconds()).slice(-2));
+      
+           this.timeDiffSS=Math.round(((new Date().getTime() - this.timeStart)/1000))%60;
+           this.timeDiffMM=Math.floor((Math.round(((new Date().getTime() - this.timeStart)/1000))/60)%60);
+         
+           this.timeDiffH=Math.floor(Math.round(((new Date().getTime() - this.timeStart)/1000))/(60*60));
+      },60)
+    }
+
     this.stopWatchStatus='start';
     
-
-    let date=new Date()
-    this.memo.Start_time=(("0"+date.getHours()).slice(-2) + ':' + ("0"+date.getMinutes()).slice(-2)+ ':' +("0"+date.getSeconds()).slice(-2));
-    this.memo.Start_date=("0"+date.getDate()).slice(-2) +'-'+("0"+(date.getMonth() + 1)).slice(-2) +'-'+date.getFullYear();
-
-    this.timeStart=new Date().getTime();
-    
-
-
-    console.log(this.memo.Start_date);
-
-   this.interval = setInterval(()=>{
-     
-      let date=new Date()
-      this.memo.End_time=(("0"+date.getHours()).slice(-2) + ':' + ("0"+date.getMinutes()).slice(-2)+ ':' +("0"+date.getSeconds()).slice(-2));
    
-        this.timeDiffSS=Math.round(((new Date().getTime() - this.timeStart)/1000))%60;
-        this.timeDiffMM=Math.floor((Math.round(((new Date().getTime() - this.timeStart)/1000))/60)%60);
-      
-        this.timeDiffH=Math.floor(Math.round(((new Date().getTime() - this.timeStart)/1000))/(60*60));
-   },60)
  }
 
  stopTimer (){
   clearInterval(this.interval);
-  this.stopWatchStatus='stop';
+  this.stopWatchStatus='pause';
  }
   
 
@@ -107,7 +130,7 @@ export class AddMemoPage {
   console.log(this.client)
   if(this.validateFields()){
     if(this.mode=='New'){
-     
+
       let date=new Date()
       this.memo.End_date=("0"+date.getDate()).slice(-2) +'-'+("0"+(date.getMonth() + 1)).slice(-2) +'-'+date.getFullYear()
       
@@ -167,6 +190,9 @@ export class AddMemoPage {
 }
 
 clearFields(){
+
+  this.stopTimer ();
+
   this.memo.Id="";
   this.memo.Name="";
   this.memo.Memo="";
@@ -177,7 +203,7 @@ clearFields(){
   this.memo.File_seq_list=[String];
   this.displayImgUrl =[];
   this.dataImgUrl =[];
-  this.startTimer();
+  
 }
 
 

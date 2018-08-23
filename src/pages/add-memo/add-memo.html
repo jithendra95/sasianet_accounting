@@ -24,21 +24,29 @@
 
     <ion-grid class='black_shade'>
         <ion-row>
-             <ion-col col-5 aling='left'>
+             <ion-col col-4 aling='left'>
                
                <ion-label stacked>Start Time</ion-label>
                <ion-input  [(ngModel)]="this.memo.Start_time" ></ion-input>
 
              </ion-col>
-            <ion-col col-5 aling='left'>
+            <ion-col col-4 aling='left'>
               
                <ion-label stacked>End Time</ion-label>
                <ion-input  [(ngModel)]="this.memo.End_time" ></ion-input>
                </ion-col>
 
-               <ion-col col-2 aling='center'>
+               <ion-col col-2 aling='left'>
 
-               <button ion-button icon-only class='playBtn' *ngIf='this.stopWatchStatus=="stop"' (click)="startTimer()" color='secondary'>
+                 <button ion-button icon-only class='playBtn' *ngIf='this.stopWatchStatus=="pause"' (click)="startTimer('restart')" >
+                     <ion-icon name="refresh" ></ion-icon  >
+                 </button>
+                       
+              </ion-col>
+
+               <ion-col col-2 aling='right'>
+
+               <button ion-button icon-only class='playBtn' *ngIf='this.stopWatchStatus=="stop" || this.stopWatchStatus=="pause"' (click)="startTimer('resume')" color='secondary'>
                   <ion-icon name="play" ></ion-icon  >
                </button>
               <button ion-button icon-only  class='playBtn' *ngIf='this.stopWatchStatus=="start"' (click)="stopTimer()" color="danger">

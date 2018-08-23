@@ -28,6 +28,7 @@ import { MemoAutoCompleteProvider } from '../providers/memo-auto-complete/memo-a
 import { HTTP } from '@ionic-native/http';
 
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { ConfirmApprovalPage } from '../pages/confirm-approval/confirm-approval';
 @NgModule({
   declarations: [
     MyApp,
@@ -42,6 +43,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
     HideFabDirective,
     AddClientPage,
     AddMemoPage,
+    ConfirmApprovalPage,
     IonTextAvatar
   ],
   imports: [
@@ -64,7 +66,8 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
     ViewDashboardPage,
     LoginPage,
     AddClientPage,
-    AddMemoPage
+    AddMemoPage,
+    ConfirmApprovalPage
   ],
   providers: [
     StatusBar,
