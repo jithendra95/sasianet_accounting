@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { Storage } from '@ionic/storage';
+
+import { HTTP } from '@ionic-native/http';
+import {SERVICE_URL} from '../../app/app.config';
+import { InterfaceProvider } from '../../providers/interface/interface';
+
 /**
  * Generated class for the ViewDiaryPage page.
  *
@@ -15,11 +21,60 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ViewDiaryPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  diaryList =[];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              private storage:Storage,public http: HTTP,public intProv:InterfaceProvider) {
+
+                this.getDiaryList();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ViewDiaryPage');
-  }
+ 
+  refresh(refresher){
+    
+        this.getDiaryList();
+        refresher.complete();
+      }
+    
+      async getDiaryList(){
+       
+    
+        this.storage.get('email').then(email=>{
+          this.storage.get('token').then(token=>{
+            this.storage.get('schema').then( schema=>{
+            
+              let loader=this.intProv.presentLoading();
+              loader.present();
+              
+
+              let headers={'Accept': 'application/json',
+              'Authorization': 'Basic ' + token
+              }
+              this.http.setDataSerializer('json');
+
+
+              this.http.get(SERVICE_URL+"diary/diary_level1?user_id="+email+"&connect_schema="+schema,
+                                 '', headers)
+                .then(data => {
+                  let jsonData=JSON.parse(data.data);
+                  console.log(jsonData);
+                   this.diaryList=jsonData;
+                    loader.dismiss();
+                   
+                 }, error => {
+                   loader.dismiss();
+                  console.log(error);// Error getting the data
+                  //return error;
+                });
+              })
+             });
+           });
+         
+      }
+
+      diaryAssign(obj){
+        //this.navCtrl.push(ConfirmApprovalPage,{Id:obj.Id,Content:obj.Content});
+        this.intProv.presentToast("Not implemeneted yet");
+      }
 
 }

@@ -6,7 +6,7 @@
 -->
 <ion-header>
       
-  <ion-navbar>
+  <ion-navbar color='primary'>
        <button ion-button menuToggle>
           <ion-icon name="menu"></ion-icon>
         </button>
@@ -17,5 +17,32 @@
 
 
 <ion-content padding>
+
+    <ion-refresher (ionRefresh)="refresh($event)">
+        <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="Pull to refresh"
+            refreshingSpinner="circle"
+            refreshingText="Refreshing...">
+
+        </ion-refresher-content>
+      </ion-refresher>
+
+    <ion-list >
+      <ion-item *ngFor="let item of diaryList" class='record'>
+          
+             <ion-grid (click)='confirmApproval(item)'>
+    
+                      <ion-row>
+                           <ion-col col-2 align='left' ><ion-icon name="arrow-dropright-circle"></ion-icon></ion-col>
+                           <ion-col col-8 align='left' >{{item?.Content}}</ion-col>
+                           <ion-col col-2 align='right' > <ion-badge item-end color='secondary'>{{item?.Count||''}}</ion-badge></ion-col>
+                      </ion-row>
+    
+    
+             </ion-grid>
+           
+         </ion-item>
+       </ion-list>
 
 </ion-content>

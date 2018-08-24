@@ -79,8 +79,9 @@ export class MyApp {
       { title: 'Home',       component: HomePage,         icon: 'home' },
       { title: 'Client',     component: ViewClientPage,   icon: 'person-add' },
       { title: 'Memo',       component: ViewMemoPage,     icon: 'clipboard' },
-      { title: 'Diary',      component: ViewDiaryPage,    icon: 'book' },
-      { title: 'Approval',   component: ViewApprovalPage, icon: 'checkmark-circle' }
+      { title: 'Approval',   component: ViewApprovalPage, icon: 'checkmark-circle' },
+      { title: 'Diary',      component: ViewDiaryPage,    icon: 'book' }
+     
     ];
 
     this.reportPages = [

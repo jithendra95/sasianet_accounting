@@ -15,6 +15,7 @@
 
 <ion-content padding>
 
+         
     <ion-refresher (ionRefresh)="refresh($event)">
         <ion-refresher-content
             pullingIcon="arrow-dropdown"
@@ -25,12 +26,15 @@
         </ion-refresher-content>
       </ion-refresher>
 
-    <ion-list >
-      <ion-item *ngFor="let item of appList">
+     
+      
+    <ion-list *ngIf='appList.length>0'>
+        <ion-item-sliding *ngFor="let item of appList" (ionSwipe)="ondrag($event)" #slideItem>
+          <ion-item >
           
              
-             <ion-label>
-             <ion-grid >
+             <ion-label >
+             <ion-grid [ngClass]="(item.IsSelect)?'checked':'notchecked'">
     
                       <ion-row>
                            <ion-col col-12 align='left' >{{item.Id}}</ion-col>
@@ -41,17 +45,69 @@
                     </ion-row>
 
                    <ion-row>
-                      <ion-col col-12 align='left' class='secondTxt' text-wrap>{{item.Content2}}{{item.Content3}}</ion-col>
+                      <ion-col col-4 align='left' class='secondTxt' text-wrap>{{item.Content2}}</ion-col>
+                      <ion-col col-8 align='right'>
+
+                           <ion-chip>
+                              
+                              <ion-label> {{item.Content3}} </ion-label>
+                              <ion-icon name="pricetag"></ion-icon>
+                          </ion-chip>
+
+                      </ion-col>
                  </ion-row>
     
     
               </ion-grid>
             </ion-label>
 
-            <ion-checkbox color="secondary"></ion-checkbox>
+            <ion-checkbox color="secondary" [(ngModel)]="item.IsSelect"></ion-checkbox>
+        </ion-item>
 
-          </ion-item>
+         <ion-item-options side="right" (ionSwipe)="sendBack(item,slideItem)">
+            <button ion-button  color='primary' (click)='sendBack(item,slideItem)' >
+                <ion-icon name="arrow-dropleft"></ion-icon>
+                 Send back</button>
+          </ion-item-options>
+
+
+       </ion-item-sliding>
+
+       
+
 
        </ion-list>
 
+       <ion-grid *ngIf='appList.length==0 && dataLoaded'>
+        <ion-row>
+            <ion-col align='center' col-12>
+            <img id='noDataImg' src= 'assets/icon/no-data.svg' >
+            <br/>
+            <h5 id='noDataTxt'> No {{this.header}}'s available </h5>
+        </ion-col>
+        </ion-row>
+</ion-grid>
+
 </ion-content>
+
+
+<ion-footer>
+  <ion-toolbar *ngIf='appList.length>0'>
+      <ion-buttons align='center'>
+                <button ion-button icon-end  solid class='appBtn' (click)='saveApproval("A")' color='secondary'>
+                    Approve
+                    <ion-icon name="checkmark-circle"></ion-icon>
+                </button>
+       
+                  <button ion-button icon-end  solid class='appBtn' color='danger'(click)='saveApproval("D")' >
+                      Disapprove
+                    <ion-icon name="close-circle"></ion-icon>
+                  </button>
+
+                  <!--button ion-button icon-end  solid class='appBtn' color='primary'(click)='saveApproval("S")' >
+                      Send back
+                    <ion-icon name="arrow-dropleft"></ion-icon>
+                  </button-->
+        </ion-buttons>  
+    </ion-toolbar>
+</ion-footer>
