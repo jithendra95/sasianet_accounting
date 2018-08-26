@@ -1,0 +1,116 @@
+<!--
+  Generated template for the AssignDiaryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color='primary'>
+    <ion-title> Diary {{header}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+         
+  <ion-refresher (ionRefresh)="refresh($event)">
+      <ion-refresher-content
+          pullingIcon="arrow-dropdown"
+          pullingText="Pull to refresh"
+          refreshingSpinner="circle"
+          refreshingText="Refreshing...">
+
+      </ion-refresher-content>
+    </ion-refresher>
+
+   
+    
+  <ion-list *ngIf='appList.length>0'>
+      <ion-item-sliding *ngFor="let item of appList" (ionSwipe)="ondrag($event)" #slideItem>
+        <ion-item >
+        
+           
+           <ion-label >
+           <ion-grid [ngClass]="(item.IsSelect)?'checked':'notchecked'">
+  
+                    <ion-row>
+                         <ion-col col-12 align='left' >{{item.Id}}</ion-col>
+                    </ion-row>
+
+                   <ion-row>
+                      <ion-col col-12 align='left' class='secondTxt' text-wrap>{{item.Content1}}</ion-col>
+                  </ion-row>
+
+                 <ion-row>
+                    <ion-col col-4 align='left' class='secondTxt' text-wrap>{{item.Content2}}</ion-col>
+                    <ion-col col-8 align='right'>
+
+                         <ion-chip *ngIf='item.Content3=="High"' color='danger' class='chip'> 
+                            <ion-label> {{item.Content3}} </ion-label>
+                        </ion-chip>
+
+                        <ion-chip *ngIf='item.Content3=="Low"' color='secondary' class='chip'>
+                          <ion-label> {{item.Content3}} </ion-label>
+                      </ion-chip>
+
+                      <ion-chip *ngIf='item.Content3=="Mid"' class='chip'>  
+                        <ion-label> {{item.Content3}} </ion-label>
+                    </ion-chip>
+
+                    </ion-col>
+               </ion-row>
+  
+  
+            </ion-grid>
+          </ion-label>
+
+          <ion-checkbox color="secondary" [(ngModel)]="item.IsSelect"></ion-checkbox>
+      </ion-item>
+
+       <ion-item-options side="right" (ionSwipe)="assignSingle(item,slideItem)">
+          <button ion-button  color='primary' (click)='assignSingle(item,slideItem)' >
+              <ion-icon name="arrow-dropleft"></ion-icon>
+               Assign</button>
+        </ion-item-options>
+
+        <ion-item-options side="left" (ionSwipe)="assignSingle(item,slideItem)">
+          <button ion-button  color='primary' (click)='assignSingle(item,slideItem)' >
+              <ion-icon name="arrow-dropright"></ion-icon>
+               Assign</button>
+        </ion-item-options>
+
+
+     </ion-item-sliding>
+
+     
+
+
+     </ion-list>
+
+     <ion-grid *ngIf='appList.length==0 && dataLoaded'>
+      <ion-row>
+          <ion-col align='center' col-12>
+          <img id='noDataImg' src= 'assets/icon/no-data.svg' >
+          <br/>
+          <h5 id='noDataTxt'> No Diary entries available </h5>
+      </ion-col>
+      </ion-row>
+</ion-grid>
+
+</ion-content>
+
+
+<ion-footer>
+<ion-toolbar *ngIf='appList.length>0'>
+    <ion-buttons align='center'>
+              <button ion-button icon-end  solid class='appBtn' (click)='saveAssign()' color='secondary'>
+                  Assign
+                  <ion-icon name="checkmark-circle"></ion-icon>
+              </button>
+     
+      </ion-buttons>  
+  </ion-toolbar>
+</ion-footer>

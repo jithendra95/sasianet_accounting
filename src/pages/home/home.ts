@@ -28,23 +28,23 @@ export class HomePage {
     
     switch(screen) { 
       case 'memo': { 
-        this.navCtrl.setRoot(ViewMemoPage);
+        this.navCtrl.push(ViewMemoPage);
         //this.navCtrl.pop();
         break; 
       } case 'client': { 
-        this.navCtrl.setRoot(ViewClientPage);
+        this.navCtrl.push(ViewClientPage);
          break; 
       }
       case 'diary': { 
-        this.navCtrl.setRoot(ViewDiaryPage);
+        this.navCtrl.push(ViewDiaryPage);
         //this.navCtrl.pop();
          break; 
       } case 'approval': { 
-        this.navCtrl.setRoot(ViewApprovalPage);
+        this.navCtrl.push(ViewApprovalPage);
         //this.navCtrl.pop();
         break; 
      } case 'dashboard': { 
-      this.navCtrl.setRoot(ViewDashboardPage);
+      this.navCtrl.push(ViewDashboardPage);
       //this.navCtrl.pop();
       break; 
    } 

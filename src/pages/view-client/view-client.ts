@@ -6,6 +6,7 @@ import { HTTP } from '@ionic-native/http';
 import {SERVICE_URL} from '../../app/app.config';
 import { InterfaceProvider } from '../../providers/interface/interface';
 import { AddClientPage } from '../add-client/add-client';
+import { Network } from '@ionic-native/network';
 /**
  * Generated class for the ViewClientPage page.
  *
@@ -21,13 +22,29 @@ import { AddClientPage } from '../add-client/add-client';
 export class ViewClientPage {
 
   clientList =[];
+  dataConnection=false;
+  dataLoaded=false;
 
   
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private storage:Storage,public http: HTTP,public intProv:InterfaceProvider) {
+    private storage:Storage,public http: HTTP,public intProv:InterfaceProvider,
+    private network:Network) {
 
-   this.getClientList();
+     // let loader=this.intProv.presentLoading();
+      //loader.present();
+
+     /* setTimeout(() => {
+        console.log(this.network.type)
+        loader.dismiss();
+        if(this.network.type=='none'){
+          this.dataLoaded=true;
+        }else{
+          this.getClientList();
+        }
+  
+      }, 5000);*/
    
+      this.getClientList();
   }
 
   ionViewDidEnter(){
@@ -35,7 +52,13 @@ export class ViewClientPage {
   }
   refresh(refresher){
 
-    this.getClientList();
+    if(this.network.type=='none'){
+      this.dataLoaded=true;
+    }else{
+      this.dataConnection=true;
+      this.getClientList();
+    }
+
     refresher.complete();
   }
 
@@ -67,6 +90,7 @@ export class ViewClientPage {
               let jsonData=JSON.parse(data.data);
               console.log(jsonData);
                this.clientList=jsonData;
+               this.dataLoaded=true;
                 loader.dismiss();
                
              }, error => {

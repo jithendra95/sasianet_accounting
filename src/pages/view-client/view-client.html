@@ -12,7 +12,7 @@
         </button>
     <ion-title>Client's</ion-title>
 
-    <ion-toolbar >
+    <ion-toolbar>
         <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     </ion-toolbar>
 
@@ -33,7 +33,7 @@
                 </ion-refresher-content>
               </ion-refresher>
     
-    <ion-list >
+    <ion-list>
        
 
         <ion-item *ngFor="let item of clientList">
@@ -65,4 +65,14 @@
       <ion-fab  center bottom >
         <button ion-fab fab (click)='addClient()'><ion-icon name="add"></ion-icon></button>
       </ion-fab>
+
+      <!--ion-grid *ngIf='!this.dataConnection && this.dataLoaded'>
+        <ion-row>
+            <ion-col align='center' col-12>
+            <img id='noDataImg' src= 'assets/icon/no-data.svg' >
+            <br/>
+            <h5 id='noDataTxt'> No Interenet Connection detected </h5>
+        </ion-col>
+        </ion-row>
+</ion-grid-->
 </ion-content>

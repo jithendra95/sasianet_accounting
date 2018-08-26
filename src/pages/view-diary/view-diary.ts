@@ -6,6 +6,7 @@ import { Storage } from '@ionic/storage';
 import { HTTP } from '@ionic-native/http';
 import {SERVICE_URL} from '../../app/app.config';
 import { InterfaceProvider } from '../../providers/interface/interface';
+import { AssignDiaryPage } from '../assign-diary/assign-diary';
 
 /**
  * Generated class for the ViewDiaryPage page.
@@ -73,8 +74,8 @@ export class ViewDiaryPage {
       }
 
       diaryAssign(obj){
-        //this.navCtrl.push(ConfirmApprovalPage,{Id:obj.Id,Content:obj.Content});
-        this.intProv.presentToast("Not implemeneted yet");
+        this.navCtrl.push(AssignDiaryPage,{Id:obj.Id,Content:obj.Content});
+        //this.intProv.presentToast("Not implemeneted yet");
       }
 
 }

@@ -8,6 +8,7 @@ import {SERVICE_URL} from '../../app/app.config';
 import { InterfaceProvider } from '../../providers/interface/interface';
 import { Storage } from '@ionic/storage';
 import { HTTP } from '@ionic-native/http';
+import { Network } from '@ionic-native/network';
 /**
  * Generated class for the AddClientPage page.
  *
@@ -25,7 +26,8 @@ export class AddClientPage {
   mode ='New';
   client = {} as Client;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public storage:Storage,public http: HTTP,public intProv:InterfaceProvider) {
+              public storage:Storage,public http: HTTP,public intProv:InterfaceProvider,
+              private network:Network) {
 
                 if(this.navParams.get('client')!=null){
                   this.client=this.navParams.get('client');
